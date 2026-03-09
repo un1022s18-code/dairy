@@ -141,11 +141,25 @@ with st.sidebar:
 # --------------------------------------------------
 # 모델 로드
 # --------------------------------------------------
-with open("model_low.pkl", "rb") as f:
-    model_low = pickle.load(f)
+import os
+import pickle
 
-with open("model_high.pkl", "rb") as f:
-    model_high = pickle.load(f)
+# 현재 파일(11.py 등)의 절대 경로를 가져옵니다.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 상위 폴더(diary/)로 이동하여 모델 파일 경로를 설정합니다.
+model_high_path = os.path.join(current_dir, "..", "model_high.pkl")
+model_low_path = os.path.join(current_dir, "..", "model_low.pkl")
+
+# model_high 로드
+if os.path.exists(model_high_path):
+    with open(model_high_path, "rb") as f:
+        model_high = pickle.load(f)
+
+# model_low 로드
+if os.path.exists(model_low_path):
+    with open(model_low_path, "rb") as f:
+        model_low = pickle.load(f)
 
 threshold = 9
 
